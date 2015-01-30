@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Following Vienno</title>
+<!-- YouTube Vienno tutorial 7 -->
+<style>
+</style>
+<script src="http://d3js.org/d3.v3.js"></script>
+</head>
+<body>
+
+
+
+<script type="text/javascript">
+
+  var data = ['red'];
+  var dataGreen = ['green'];
+  var data2 = ['blue','yellow'];
+
+  var canvas = d3.select('body')
+               .append('svg')
+               .attr('width', 500)
+               .attr('height', 500)
+               
+  var circle1 = canvas.append('circle')
+               .attr('cx', 50)
+               .attr('cy', 100)
+               .attr('r', 25)
+  var rect1 = canvas.append('rect')
+               .attr('x', 50)
+               .attr('y', 100)
+               .attr('width', 150)
+               .attr('height', 25)
+  var circle2 = canvas.append('circle')
+               .attr('cx', 50)
+               .attr('cy', 200)
+               .attr('r', 25)
+
+      // DOM Elements < Data Elements --> ENTER  selection to create DOM elements cycling through data
+      /* enter() - Returns the enter selection: placeholder nodes for each data element for which 
+         no corresponding existing DOM element was found in the current selection. 
+         This method is only defined on the update selection, which is returned by the data operator.
+      */
+
+      // DOM Elements = Data Elements --> UPDATE selection to update DOM elements cycling through data
+      /* data(myData) - The result of the data operator is the update selection; this represents 
+         the selected DOM elements that were successfully bound to the specified data elements. 
+         The update selection also contains a reference to the enter and exit selections, 
+         for adding and removing nodes in correspondence with data.
+      */
+
+      // DOM Elements > Data Elements --> EXIT   selection 
+      /* selection.exit() - Returns the exit selection: existing DOM elements in the current 
+         selection for which no new data element was found. This method is only defined 
+         on the update selection, which is returned by the data operator. 
+         The exit selection defines all the normal operators, though typically the main one 
+         you'll want to use is remove.
+         See also https://github.com/mbostock/d3/wiki/Selections#exit
+      */
+
+  var circles = canvas.selectAll('circle') // there's 2 DOM elems
+               .data(data) // 1 elem in array --> pair with first circle
+               .attr('fill',function(d){
+                 return d;
+               }) // only the 1st circle is affected
+               .exit() // return second circle, BUT DATA IS OVER!!!
+               //.data(dataGreen) // cannot reload. why?
+               .attr('fill',function(d){ // d undefined
+               // return d; // won't work
+                 return "brown";
+               })
+    
+  var rects = canvas.selectAll('rect') // there's ONE rect
+               .data(data2) // ...and TWO data elements
+               .attr('fill',function(d) { // rect1 gets blue
+                 return d;
+               })
+               .enter() // bring about remaining data to start drawing
+               .append('rect')
+                 .attr('x', 250)
+                 .attr('y', 300)
+                 .attr('width', 150)
+                 .attr('height', 25)
+                 .attr('fill',function(d) { // new rect is born yellow
+                   return d;
+                 })
+  setTimeout(function(){
+  
+  var fff = canvas.selectAll('circle') // red and green
+    .data(data2) // bring about the update selection
+    .attr('fill',function(d){
+      return d; // will get blue+yellow
+    })
+  
+  },2000);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</script>
+</body>
