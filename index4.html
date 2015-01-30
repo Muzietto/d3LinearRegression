@@ -14,23 +14,29 @@
 
 <script type="text/javascript">
 /*Select the DIV container "D3line" and add an SVG element to it*/
-var lineGraph = d3.select("#D3line")
-    .append("svg:svg")
+var svg = d3.select("#D3line")
+    .append("svg")
     .attr("width", 500)   
-    .attr("height", 200); 
+    .attr("height", 200)
+    .style('border','1px solid green'); 
 
 // To draw a line use the "svg:line" element.
 // "svg:line" element requires 4 attributes (x1, y1, x2, and y2)
 // (x1,y1) are coordinates of the starting point. 
 // (x2,y2) are coordinates of the end point.
 // You also need to specify the stroke color.
-var myLine = lineGraph.append("svg:line")
-    .attr("x1", 40)
-    .attr("y1", 50)
-    .attr("x2", 450)
-    .attr("y2", 150)
-    .style("stroke", "rgb(6,120,155)");    
-    
+var myLine = svg.append("line")
+    .attr("x1", 40).attr("y1", 50)
+    .attr("x2", 450).attr("y2", 150)
+    .style("stroke", "rgb(6,120,155)");
+
+// after 2 seconds add the second line
+setTimeout(function(){
+  d3.select('svg').selectAll('.sdf').data([{}]).enter().append('line')
+    .attr('x1',0).attr('y1',0)
+    .attr('x2',500).attr('y2',200)
+    .style('stroke','red');
+},2000);
     
 </script>
 </body>
